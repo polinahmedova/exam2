@@ -15,7 +15,12 @@ class HomePage extends GetView<HomeController> {
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               const Text('Укажите ваше имя'),
               const SizedBox(height: 20),
-              TextField(controller: controller.textCtrl, onSubmitted: (value) => controller.signIn, decoration: const InputDecoration(border: OutlineInputBorder(), filled: true),)
+              TextField(
+                controller: controller.textCtrl,
+                onSubmitted: (value) => controller.signIn,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(), filled: true),
+              )
             ])));
   }
 }
