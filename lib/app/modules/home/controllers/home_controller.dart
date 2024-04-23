@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:exam2/services/user_service.dart';
+import 'package:exam2/app/services/user_service.dart';
 
 class HomeController extends GetxController {
   final textCtrl = TextEditingController();
