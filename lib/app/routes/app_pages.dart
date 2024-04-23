@@ -1,20 +1,23 @@
+import 'package:exam2/app/modules/chat/chat_view.dart';
 import 'package:get/get.dart';
 
+import '../modules/chat/chat_binding.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 
 part 'app_routes.dart';
 
-class AppPages {
-  AppPages._();
-
-  static const INITIAL = Routes.HOME;
-
-  static final routes = [
+abstract class AppPages {
+  static final pages = [
     GetPage(
-      name: _Paths.HOME,
-      page: () => const HomeView(),
+      name: Routes.HOME,
+      page: () => HomePage(),
       binding: HomeBinding(),
+    ),
+    GetPage(
+      name: Routes.CHAT,
+      page: () => ChatPage(),
+      binding: ChatBinding(),
     ),
   ];
 }

@@ -18,21 +18,22 @@ class SocketService extends GetxService {
             .disableAutoConnect() //отключения автоподключения
             .disableReconnection() //отключение переподключения
             .build());
-
+// Обработчик подключения
     _socket.onConnect((data) {
       printInfo(info: 'Socked connected');
       _sendLoginMessage();
       Get.offNamed(Routes.CHAT);
     });
-
+// Обработчик отключения
     _socket.onDisconnect((data) {
       UserService.to.clearMessage();
       printInfo(info: 'Socket disconnected');
       Get.offNamed(Routes.HOME);
     });
+    // Обработчик ошибки подключения
     _socket
         .onConnectError((data) => printInfo(info: 'Socket connection error'));
-
+    // Обработчик всех событий
     _socket.onAny((event, data) {
       var isKnown = SocketEvent.values.any((element) => element.name == event);
       if (!isKnown) return;
@@ -41,10 +42,10 @@ class SocketService extends GetxService {
       UserService.to.addMessageToList(message);
     });
 
-    return this;
+    return this; //Возвращаем текущий экземпляр
   }
 
-  String get clientId => _socket.id ?? "";
+  String get clientId => _socket.id ?? ""; // Получение идентификатора клиента
 
   void connect() {
     //подключение
@@ -54,19 +55,20 @@ class SocketService extends GetxService {
   void disconnect() async {
     //отключение
     _sendLogoutMessage();
-    await Future.delayed(const Duration(seconds: 2)); //TODO костыль
+    await Future.delayed(const Duration(seconds: 2));
     _socket.disconnect();
   }
 
   void _sendLoginMessage() {
-    _socket.emit(SocketEvent.login.name, UserService.to.username);
+    _socket.emit(
+        SocketEvent.login.name, UserService.to.username); //сообщение о входе
   }
 
   void _sendLogoutMessage() {
-    _socket.emit(SocketEvent.logout.name);
+    _socket.emit(SocketEvent.logout.name); //выход
   }
 
   void sendMessageToChat(String message) {
-    _socket.emit(SocketEvent.newMessage.name, message);
+    _socket.emit(SocketEvent.newMessage.name, message); //сообщение в чат
   }
 }
